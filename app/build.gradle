@@ -25,4 +25,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    //Life cycle dependencies
+    def lifecycle_version = "2.1.0"
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    //Test helpers for LiveData - unsure if needed at this stage
+    testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
+
+    //Room dependencies
+    def room_version = "2.2.0-rc01"
+    implementation "androidx.room:room-runtime:$room_version"
+
 }
