@@ -1,9 +1,23 @@
 package com.example.climatetale.Data;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
-@Entity
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(foreignKeys = @ForeignKey(entity = Question.class,
+        parentColumns = "questionID",
+        childColumns = "questionID",
+        onDelete = CASCADE))
 public class Answer {
-    //Entity
+    public int questionID;
+    @PrimaryKey
+    public int answer;
+
+    public Answer(int questionID, int answer) {
+        this.questionID = questionID;
+        this.answer = answer;
+    }
 }
 
