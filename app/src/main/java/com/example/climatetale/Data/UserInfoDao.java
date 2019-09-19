@@ -21,19 +21,19 @@ public interface UserInfoDao {
     //Queries
     //Set user's name
     @Query("UPDATE UserInfo SET name =:name WHERE userID = :userID ")
-    void setName(String name, int userID);
+    void updateName(String name, int userID);
 
     //set user's overall progress
     @Query("UPDATE UserInfo SET progressOverall =:progress WHERE userID =:userID")
-    void setOverallProgress(int progress, int userID);
+    void updateOverallProgress(int progress, int userID);
 
     //set user's chapters progress
     @Query("UPDATE UserInfo SET progressChapter =:progress WHERE userID =:userID")
-    void setOverallChapter(int progress, int userID);
+    void updateOverallChapter(int progress, int userID);
 
     //set user's topic progress
     @Query("UPDATE UserInfo SET progressTopic =:progress WHERE userID =:userID")
-    void setOverallTopic(int progress, int userID);
+    void updateOverallTopic(int progress, int userID);
 
     //Get user's ID from user's name
     @Query("SELECT userID FROM userinfo WHERE name = :name")
