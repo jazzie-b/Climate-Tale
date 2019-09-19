@@ -17,9 +17,10 @@ public interface AppInfoDao {
     void delete(AppInfo appInfo);
 
     //Queries
-    //Set total chapters within app as a value
+    //Update total chapters within app as a value
     @Query("UPDATE AppInfo SET totalChapters =:total")
     void updateTotalChapters(int total);
+
 
 
 }

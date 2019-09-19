@@ -19,19 +19,19 @@ public interface UserInfoDao {
     void delete(UserInfo userInfo);
 
     //Queries
-    //Set user's name
+    //Update user's name
     @Query("UPDATE UserInfo SET name =:name WHERE userID = :userID ")
     void updateName(String name, int userID);
 
-    //set user's overall progress
+    //Update user's overall progress
     @Query("UPDATE UserInfo SET progressOverall =:progress WHERE userID =:userID")
     void updateOverallProgress(int progress, int userID);
 
-    //set user's chapters progress
+    //Update user's chapters progress
     @Query("UPDATE UserInfo SET progressChapter =:progress WHERE userID =:userID")
     void updateOverallChapter(int progress, int userID);
 
-    //set user's topic progress
+    //Update user's topic progress
     @Query("UPDATE UserInfo SET progressTopic =:progress WHERE userID =:userID")
     void updateOverallTopic(int progress, int userID);
 
