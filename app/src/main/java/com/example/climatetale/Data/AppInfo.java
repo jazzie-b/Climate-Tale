@@ -12,14 +12,17 @@ import static androidx.room.ForeignKey.CASCADE;
         onDelete = CASCADE))
 public class AppInfo {
     @PrimaryKey
+    public int appID;
     public int totalTopics;
     public int totalChapters;
     public int userID;
 
     //Constructor
-    public AppInfo(int totalTopics, int totalChapters, int userID) {
+    public AppInfo(int appID, int totalTopics, int totalChapters, int userID) {
+        this.appID = appID;
         this.totalTopics = totalTopics;
         this.totalChapters = totalChapters;
         this.userID = userID;
     }
+
 }

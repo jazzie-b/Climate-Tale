@@ -7,23 +7,24 @@ import androidx.room.PrimaryKey;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(foreignKeys = @ForeignKey(entity = AppInfo.class,
-        parentColumns = "totalTopics",
-        childColumns = "totalTopics",
+        parentColumns = "appID",
+        childColumns = "appID",
         onDelete = CASCADE))
 public class Chapter {
     @PrimaryKey
     public int chapterID;
     public int chapterNumber;
     public String chapterName;
-    public int totalTopics;
+    public int appID;
     public boolean completedChapter;
 
     //Constructor
-    public Chapter(int chapterID, int chapterNumber, String chapterName, int totalTopics, boolean completedChapter) {
+
+    public Chapter(int chapterID, int chapterNumber, String chapterName, int appID, boolean completedChapter) {
         this.chapterID = chapterID;
         this.chapterNumber = chapterNumber;
         this.chapterName = chapterName;
-        this.totalTopics = totalTopics;
+        this.appID = appID;
         this.completedChapter = completedChapter;
     }
 }
