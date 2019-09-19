@@ -19,10 +19,6 @@ public interface UserInfoDao {
     void delete(UserInfo userInfo);
 
     //Queries
-    //Set user's ID
-    @Query("UPDATE UserInfo SET userID = :userID")
-    void setUserID(int userID);
-
     //Set user's name
     @Query("UPDATE UserInfo SET name =:name WHERE userID = :userID ")
     void setName(String name, int userID);

@@ -6,23 +6,17 @@ import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(foreignKeys = @ForeignKey(entity = UserInfo.class,
-        parentColumns = "userID",
-        childColumns = "userID",
-        onDelete = CASCADE))
+@Entity
 public class AppInfo {
     @PrimaryKey
     public int appID;
     public int totalTopics;
     public int totalChapters;
-    public int userID;
 
     //Constructor
-    public AppInfo(int appID, int totalTopics, int totalChapters, int userID) {
+    public AppInfo(int appID, int totalTopics, int totalChapters) {
         this.appID = appID;
         this.totalTopics = totalTopics;
         this.totalChapters = totalChapters;
-        this.userID = userID;
     }
-
 }
