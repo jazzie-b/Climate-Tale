@@ -16,11 +16,14 @@ public class Topic {
     public int topicNumber;
     public String TopicName;
     public int chapterID;
+    public boolean completedTopic;
 
-    public Topic(int topicID, int topicNumber, String topicName, int chapterID) {
+    //Constructor
+    public Topic(int topicID, int topicNumber, String topicName, int chapterID, boolean completedTopic) {
         this.topicID = topicID;
         this.topicNumber = topicNumber;
         TopicName = topicName;
         this.chapterID = chapterID;
+        this.completedTopic = completedTopic;
     }
 }

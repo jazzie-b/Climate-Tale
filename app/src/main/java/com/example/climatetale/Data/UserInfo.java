@@ -12,6 +12,7 @@ public class UserInfo {
     public int progressChapter;
     public int progressTopic;
 
+    //Constructor
     public UserInfo(int userID, String name, int progressOverall, int progressChapter, int progressTopic) {
         this.userID = userID;
         this.name = name;

@@ -16,6 +16,7 @@ public class AppInfo {
     public int totalChapters;
     public int userID;
 
+    //Constructor
     public AppInfo(int totalTopics, int totalChapters, int userID) {
         this.totalTopics = totalTopics;
         this.totalChapters = totalChapters;

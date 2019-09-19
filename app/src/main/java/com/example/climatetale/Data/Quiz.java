@@ -14,9 +14,12 @@ public class Quiz {
     @PrimaryKey
     public int quizID;
     public int topicID;
+    public boolean hasPassed;
 
-    public Quiz(int quizID, int topicID) {
+    //Constructor
+    public Quiz(int quizID, int topicID, boolean hasPassed) {
         this.quizID = quizID;
         this.topicID = topicID;
+        this.hasPassed = hasPassed;
     }
 }

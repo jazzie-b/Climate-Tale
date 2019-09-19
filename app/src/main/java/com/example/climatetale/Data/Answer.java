@@ -14,10 +14,13 @@ public class Answer {
     public int questionID;
     @PrimaryKey
     public int answer;
+    public boolean correct;
 
-    public Answer(int questionID, int answer) {
+    //Constructor
+    public Answer(int questionID, int answer, boolean correct) {
         this.questionID = questionID;
         this.answer = answer;
+        this.correct = correct;
     }
 }
 

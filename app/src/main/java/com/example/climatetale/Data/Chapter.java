@@ -16,11 +16,14 @@ public class Chapter {
     public int chapterNumber;
     public String chapterName;
     public int totalTopics;
+    public boolean completedChapter;
 
-    public Chapter(int chapterID, int chapterNumber, String chapterName, int totalTopics) {
+    //Constructor
+    public Chapter(int chapterID, int chapterNumber, String chapterName, int totalTopics, boolean completedChapter) {
         this.chapterID = chapterID;
         this.chapterNumber = chapterNumber;
         this.chapterName = chapterName;
         this.totalTopics = totalTopics;
+        this.completedChapter = completedChapter;
     }
 }
