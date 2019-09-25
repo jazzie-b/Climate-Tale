@@ -14,7 +14,7 @@ public class Topic {
     @PrimaryKey
     public int topicID;
     public int topicNumber;
-    public String TopicName;
+    public String topicName;
     public int chapterID;
     public boolean completedTopic;
 
@@ -22,7 +22,7 @@ public class Topic {
     public Topic(int topicID, int topicNumber, String topicName, int chapterID, boolean completedTopic) {
         this.topicID = topicID;
         this.topicNumber = topicNumber;
-        TopicName = topicName;
+        this.topicName = topicName;
         this.chapterID = chapterID;
         this.completedTopic = completedTopic;
     }
