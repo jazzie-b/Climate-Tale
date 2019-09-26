@@ -37,17 +37,17 @@ public interface TopicDao {
 
     //Get topic ID
     @Query("SELECT topicID FROM Topic WHERE topicName =:topicName")
-    void getTopicID(String topicName);
+    int getTopicID(String topicName);
 
     //Get topic number
     @Query("SELECT topicNumber FROM Topic WHERE topicID =:topicID")
-    void getTopicNumber(int topicID);
+    int getTopicNumber(int topicID);
 
     //Get topic name
     @Query("SELECT topicName FROM Topic WHERE topicID =:topicID")
-    void getTopicName(int topicID);
+    String getTopicName(int topicID);
 
     //Get whether the topic is completed
     @Query("SELECT completedTopic FROM Topic WHERE topicID =:topicID")
-    void getCompletedTopic(int topicID);
+    boolean getCompletedTopic(int topicID);
 }

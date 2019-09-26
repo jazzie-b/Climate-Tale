@@ -37,13 +37,13 @@ public interface ChapterDao {
 
     //get chapter id
     @Query("SELECT chapterID FROM Chapter WHERE chapterName=:chapterName")
-    void getChapterID(String chapterName);
+    int getChapterID(String chapterName);
 
     //get chapter name
     @Query("SELECT chapterName FROM Chapter WHERE chapterID=:chapterID")
-    void getChapterName(int chapterID);
+    String getChapterName(int chapterID);
 
     //get chapter completed
     @Query("SELECT completedChapter FROM Chapter WHERE chapterID=:chapterID")
-    void getCompleteChapter(int chapterID);
+    boolean getCompleteChapter(int chapterID);
 }
