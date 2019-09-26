@@ -11,16 +11,18 @@ import static androidx.room.ForeignKey.CASCADE;
         childColumns = "questionID",
         onDelete = CASCADE))
 public class Answer {
-    public int questionID;
     @PrimaryKey
+    public int answerID;
+    public int questionID;
     public int answer;
-    public boolean correct;
+    public boolean isCorrect;
 
     //Constructor
-    public Answer(int questionID, int answer, boolean correct) {
+    public Answer(int answerID, int questionID, int answer, boolean isCorrect) {
+        this.answerID = answerID;
         this.questionID = questionID;
         this.answer = answer;
-        this.correct = correct;
+        this.isCorrect = isCorrect;
     }
 }
 
