@@ -28,11 +28,11 @@ public interface ChapterDao {
     void updateChapterNumber(int chapterID, int chapterNumber);
 
     //Update chapter name based on Chapter ID
-    @Query("UPDATE chapter SET chapterName =:chapterName WHERE chapterID =:chapterName")
+    @Query("UPDATE Chapter SET chapterName =:chapterName WHERE chapterID =:chapterName")
     void updateChapterName(int chapterID, String chapterName);
 
     //Update completed chapter boolean
-    @Query("UPDATE chapter SET completedChapter =:isComplete WHERE chapterID =:chapterID")
+    @Query("UPDATE Chapter SET completedChapter =:isComplete WHERE chapterID =:chapterID")
     void updateCompleteChapter(boolean isComplete, int chapterID);
 
     //get chapter id
