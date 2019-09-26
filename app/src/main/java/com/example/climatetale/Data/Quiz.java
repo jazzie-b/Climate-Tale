@@ -13,12 +13,14 @@ import static androidx.room.ForeignKey.CASCADE;
 public class Quiz {
     @PrimaryKey
     public int quizID;
+    public String quizName;
     public int topicID;
     public boolean hasPassed;
 
     //Constructor
-    public Quiz(int quizID, int topicID, boolean hasPassed) {
+    public Quiz(int quizID, String quizName, int topicID, boolean hasPassed) {
         this.quizID = quizID;
+        this.quizName = quizName;
         this.topicID = topicID;
         this.hasPassed = hasPassed;
     }
