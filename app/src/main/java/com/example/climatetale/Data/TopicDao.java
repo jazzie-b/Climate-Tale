@@ -19,7 +19,7 @@ public interface TopicDao {
     void delete(Topic topic);
 
     //Queries
-    //Update the topic ID based on topic name
+    //Update the topic ID
     @Query("UPDATE Topic SET topicID =:topicID WHERE topicName =:topicName")
     void updateTopicID(int topicID, String topicName);
 

@@ -19,19 +19,19 @@ public interface ChapterDao {
     void delete(Chapter chapter);
 
     //Queries
-    //Update chapter ID based on chapter number
+    //Update chapter ID
     @Query("UPDATE Chapter SET chapterID =:chapterID WHERE chapterNumber =:chapterNumber")
     void updateChapterID(int chapterID, int chapterNumber);
 
-    //Update chapter number based on chapter ID
+    //Update chapter number
     @Query("UPDATE Chapter SET chapterNumber =:chapterNumber WHERE chapterID =:chapterID")
     void updateChapterNumber(int chapterID, int chapterNumber);
 
-    //Update chapter name based on Chapter ID
+    //Update chapter name
     @Query("UPDATE Chapter SET chapterName =:chapterName WHERE chapterID =:chapterName")
     void updateChapterName(int chapterID, String chapterName);
 
-    //Update completed chapter boolean
+    //Update completed chapter
     @Query("UPDATE Chapter SET completedChapter =:isComplete WHERE chapterID =:chapterID")
     void updateCompleteChapter(boolean isComplete, int chapterID);
 
