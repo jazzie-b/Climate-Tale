@@ -8,7 +8,7 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.quiz_start);
+        setContentView(R.layout.quiz_question);
     }
 
 }
