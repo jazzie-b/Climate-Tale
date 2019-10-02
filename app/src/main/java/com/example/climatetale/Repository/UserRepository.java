@@ -16,18 +16,13 @@ public class UserRepository {
     private MutableLiveData<String> userName;
 
     public UserRepository(Application application){
-        //conntect to database
+        //Connect to database
         ClimateTaleDatabase db = ClimateTaleDatabase.getInstance(application);
         //get dao
         userInfoDao = db.getUserInfoDao();
-        //set user info
-        userInfo.setValue(setupUserInfo());
+
     }
 
-    public UserInfo setupUserInfo(){
-        UserInfo newUserInfo = new UserInfo(01, "null", 0,0,0,01);
-        return newUserInfo;
-    }
 
     //Database operations
     public void Insert(UserInfo userInfo){
@@ -38,10 +33,14 @@ public class UserRepository {
         new UpdateUserInfoAsyncTask(userInfoDao).execute(userInfo);
     }
 
-    //Live data objects
+    //Live data objects methods
     public LiveData<String> getUserName() {
         userName.setValue(userInfoDao.getName(01));
         return userName;
+    }
+
+    public void setUserName(String name){
+        userName.setValue(name);
     }
 
     public LiveData<UserInfo> getUserInfo() {
