@@ -28,7 +28,13 @@ public class MainActivity extends AppCompatActivity {
         configureBtnOpenTopic();
 
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        userViewModel.getUserInfo().observe(this, new Observer<UserInfo>() {
+            @Override
+            public void onChanged(UserInfo userInfo) {
+                Toast.makeText(MainActivity.this, "Observed", Toast.LENGTH_SHORT).show();
 
+            }
+        });
     }
 
     //Configure button to move to quiz

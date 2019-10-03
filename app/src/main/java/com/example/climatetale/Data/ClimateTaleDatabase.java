@@ -57,8 +57,8 @@ public abstract class ClimateTaleDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids){
             //Start up data for database
-            appInfoDao.insert(new AppInfo(01, 1,1));
-            userInfoDao.insert(new UserInfo(01, "Null", 0,0,0,01));
+            appInfoDao.insert(new AppInfo(1, 1,1));
+            userInfoDao.insert(new UserInfo(1, "Hello", 0,0,0,01));
 
             return null;
         }

@@ -13,13 +13,14 @@ import com.example.climatetale.Data.UserInfoDao;
 public class UserRepository {
     private UserInfoDao userInfoDao;
     private LiveData<UserInfo> userInfo;
+    private LiveData<String> userName;
 
     public UserRepository(Application application){
         //Connect to database
         ClimateTaleDatabase db = ClimateTaleDatabase.getInstance(application);
         //get dao
         userInfoDao = db.getUserInfoDao();
-        userInfo = userInfoDao.getUserInfo(01);
+        userInfo = userInfoDao.getUserInfo(1);
     }
 
     //Database operations
