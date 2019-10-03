@@ -1,5 +1,6 @@
 package com.example.climatetale.Data;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -41,7 +42,7 @@ public interface UserInfoDao {
 
     //Get user's name from user's ID
     @Query("SELECT name FROM UserInfo WHERE userID =:userID")
-    String getName(int userID);
+    MutableLiveData<String> getName(int userID);
 
     //Get user's progress overall
     @Query("SELECT progressOverall FROM UserInfo WHERE userID =:userID")

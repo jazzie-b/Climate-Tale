@@ -10,13 +10,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.climatetale.ViewModels.MainActivityViewModel;
+import com.example.climatetale.ViewModels.UserViewModel;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private MainActivityViewModel mMainActivityViewModel;
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +26,14 @@ public class MainActivity extends AppCompatActivity {
 
         configureBtnOpenTopic();
 
-        mMainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
-        /*mMainActivityViewModel.init(this);
-
-        final TextView txtName = findViewById(R.id.txtName);
-        txtName.setText(mMainActivityViewModel.getUsersName());*/
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        userViewModel.getUserName().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                //update text field
+                Toast.makeText(MainActivity.this, "Observed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     //Configure button to move to quiz

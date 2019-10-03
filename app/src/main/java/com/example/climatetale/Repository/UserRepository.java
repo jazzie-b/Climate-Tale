@@ -20,22 +20,20 @@ public class UserRepository {
         ClimateTaleDatabase db = ClimateTaleDatabase.getInstance(application);
         //get dao
         userInfoDao = db.getUserInfoDao();
-
     }
 
-
     //Database operations
-    public void Insert(UserInfo userInfo){
+    public void insert(UserInfo userInfo){
         new InsertUserInfoAsyncTask(userInfoDao).execute(userInfo);
     }
 
-    public void Update(UserInfo userInfo){
+    public void update(UserInfo userInfo){
         new UpdateUserInfoAsyncTask(userInfoDao).execute(userInfo);
     }
 
     //Live data objects methods
-    public LiveData<String> getUserName() {
-        userName.setValue(userInfoDao.getName(01));
+    public MutableLiveData<String> getUserName() {
+        userName = userInfoDao.getName(01);
         return userName;
     }
 
@@ -43,7 +41,7 @@ public class UserRepository {
         userName.setValue(name);
     }
 
-    public LiveData<UserInfo> getUserInfo() {
+    public MutableLiveData<UserInfo> getUserInfo() {
         return userInfo;
     }
 
