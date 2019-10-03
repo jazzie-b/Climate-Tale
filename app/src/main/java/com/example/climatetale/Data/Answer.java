@@ -2,6 +2,7 @@ package com.example.climatetale.Data;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -9,7 +10,8 @@ import static androidx.room.ForeignKey.CASCADE;
 @Entity(foreignKeys = @ForeignKey(entity = Question.class,
         parentColumns = "questionID",
         childColumns = "questionID",
-        onDelete = CASCADE))
+        onDelete = CASCADE),
+        indices = {@Index(value = "questionID")})
 public class Answer {
     @PrimaryKey
     public int answerID;

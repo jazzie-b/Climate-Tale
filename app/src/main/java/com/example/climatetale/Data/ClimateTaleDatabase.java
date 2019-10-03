@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {Answer.class, AppInfo.class, Chapter.class, Question.class, Quiz.class, Topic.class, UserInfo.class},
-        version = 1)
+        version = 1, exportSchema = false)
 public abstract class ClimateTaleDatabase extends RoomDatabase {
 
     private static ClimateTaleDatabase instance;
@@ -23,7 +23,7 @@ public abstract class ClimateTaleDatabase extends RoomDatabase {
     public abstract TopicDao getTopicDao();
     public abstract UserInfoDao getUserInfoDao();
 
-    public  static synchronized ClimateTaleDatabase getInstance(Context context){
+    public static synchronized ClimateTaleDatabase getInstance(Context context){
         if(instance==null){
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     ClimateTaleDatabase.class, "climate_tale_database")

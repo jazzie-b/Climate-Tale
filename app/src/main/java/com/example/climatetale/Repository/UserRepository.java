@@ -12,14 +12,14 @@ import com.example.climatetale.Data.UserInfoDao;
 
 public class UserRepository {
     private UserInfoDao userInfoDao;
-    private MutableLiveData<UserInfo> userInfo;
-    private MutableLiveData<String> userName;
+    private LiveData<UserInfo> userInfo;
 
     public UserRepository(Application application){
         //Connect to database
         ClimateTaleDatabase db = ClimateTaleDatabase.getInstance(application);
         //get dao
         userInfoDao = db.getUserInfoDao();
+        userInfo = userInfoDao.getUserInfo(01);
     }
 
     //Database operations
@@ -32,18 +32,11 @@ public class UserRepository {
     }
 
     //Live data objects methods
-    public MutableLiveData<String> getUserName() {
-        userName = userInfoDao.getName(01);
-        return userName;
-    }
-
-    public void setUserName(String name){
-        userName.setValue(name);
-    }
-
-    public MutableLiveData<UserInfo> getUserInfo() {
+    public LiveData<UserInfo> getUserInfo() {
         return userInfo;
     }
+
+
 
     //Access Database operations
     private static class InsertUserInfoAsyncTask extends AsyncTask<UserInfo, Void, Void>{
@@ -73,4 +66,5 @@ public class UserRepository {
             return null;
         }
     }
-}
+
+   }

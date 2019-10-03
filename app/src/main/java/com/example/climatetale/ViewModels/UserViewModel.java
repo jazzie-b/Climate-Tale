@@ -1,15 +1,10 @@
 package com.example.climatetale.ViewModels;
 
 import android.app.Application;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.LiveData;
 
 
 import com.example.climatetale.Data.UserInfo;
@@ -18,15 +13,13 @@ import com.example.climatetale.Repository.UserRepository;
 public class UserViewModel extends AndroidViewModel {
 
     private UserRepository repository;
-    private MutableLiveData<UserInfo> userInfo;
-    private MutableLiveData<String> userName;
+    private LiveData<UserInfo> userInfo;
 
     public UserViewModel(@NonNull Application application) {
         super(application);
         //repository connection
         repository = new UserRepository(application);
         userInfo = repository.getUserInfo();
-        userName = repository.getUserName();
     }
 
     //Repository methods
@@ -38,15 +31,15 @@ public class UserViewModel extends AndroidViewModel {
         repository.update(userInfo);
     }
 
-    public MutableLiveData<String> getUserName(){
-        return repository.getUserName();
+    /*public MutableLiveData<String> getUserName(){
+        return repository.getUserName(01);
     }
 
     public void setUserName(String name){
         repository.setUserName(name);
-    }
+    }*/
 
-    public MutableLiveData<UserInfo> getUserInfo(){
+    public LiveData<UserInfo> getUserInfo(){
         return repository.getUserInfo();
     }
 

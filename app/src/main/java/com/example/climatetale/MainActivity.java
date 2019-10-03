@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.climatetale.Data.UserInfo;
 import com.example.climatetale.ViewModels.UserViewModel;
 
 
@@ -27,13 +28,7 @@ public class MainActivity extends AppCompatActivity {
         configureBtnOpenTopic();
 
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-        userViewModel.getUserName().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                //update text field
-                Toast.makeText(MainActivity.this, "Observed", Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     //Configure button to move to quiz
