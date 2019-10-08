@@ -1,5 +1,6 @@
 package com.example.climatetale.Data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -68,4 +69,8 @@ public interface QuestionDao {
     //Get selection
     @Query("SELECT selection FROM Question WHERE questionID =:questionID")
     int getSelection(int questionID);
+
+    //Get question obj
+    @Query("SELECT * FROM Question WHERE questionID =:questionID")
+    LiveData<Question> getQuestionObj(int questionID);
 }
