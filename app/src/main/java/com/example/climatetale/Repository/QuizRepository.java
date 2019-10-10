@@ -12,7 +12,7 @@ import com.example.climatetale.Data.QuizDao;
 public class QuizRepository {
 
     public QuizDao quizDao;
-    public LiveData<Quiz> quiz;
+    public Quiz quiz;
 
     public QuizRepository(Application application, int quizID){
         //Connect to database
@@ -31,9 +31,10 @@ public class QuizRepository {
         new UpdateQuizAsyncTask(quizDao).execute(quiz);
     }
 
-    //Live data objects methods
-    public LiveData<Quiz> getQuiz() {
-        return quiz;
+    //Objects methods
+    //get a specific quiz
+    public Quiz getQuiz(int index) {
+        return quizDao.getQuiz(index);
     }
 
 

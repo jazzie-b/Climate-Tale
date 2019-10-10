@@ -72,5 +72,5 @@ public interface QuestionDao {
 
     //Get question obj
     @Query("SELECT * FROM Question WHERE questionID =:questionID")
-    LiveData<Question> getQuestionObj(int questionID);
+    Question getQuestionObj(int questionID);
 }

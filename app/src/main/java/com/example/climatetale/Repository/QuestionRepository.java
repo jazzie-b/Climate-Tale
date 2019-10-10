@@ -9,16 +9,21 @@ import com.example.climatetale.Data.ClimateTaleDatabase;
 import com.example.climatetale.Data.Question;
 import com.example.climatetale.Data.QuestionDao;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 
 public class QuestionRepository {
     private QuestionDao questionDao;
-    private LiveData<Question> question;
+    private Question question;
+    private int questionID;
 
-    public QuestionRepository(Application application, int questionID){
+    public QuestionRepository(Application application, int questID){
         //Connect to database
         ClimateTaleDatabase db = ClimateTaleDatabase.getInstance(application);
         //Get dao
         questionDao = db.getQuestionDao();
+        questionID = questID;
         question = questionDao.getQuestionObj(questionID);
     }
 
@@ -33,8 +38,27 @@ public class QuestionRepository {
     }
 
     //Live data objects methods
-    public LiveData<Question> getQuestion() {
+    public Question getQuestion() {
         return question;
+    }
+
+    public ArrayList<Question> populateQuestionList(){
+        ArrayList<Question> questionList = new ArrayList<>();
+        //get ID
+        int ID2 = questionID + 1;
+        int ID3 = questionID + 2;
+
+        //get 3 questions
+        Question question1 = question;
+        Question question2 = questionDao.getQuestionObj(ID2);
+        Question question3 = questionDao.getQuestionObj(ID3);
+
+        //add to list
+        questionList.add(question1);
+        questionList.add(question2);
+        questionList.add(question3);
+
+        return questionList;
     }
 
 

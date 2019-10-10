@@ -46,6 +46,6 @@ public interface QuizDao {
 
     //get quiz object
     @Query("SELECT * FROM Quiz WHERE quizID =:quizID")
-    LiveData<Quiz> getQuiz(int quizID);
+    Quiz getQuiz(int quizID);
 
 }
