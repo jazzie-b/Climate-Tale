@@ -38,4 +38,8 @@ public interface AppInfoDao {
     //Get total topics for set appID
     @Query("SELECT totalTopics FROM AppInfo WHERE appID =:appID")
     int getTotalTopics(int appID);
+
+    //get app info object
+    @Query("SELECT * FROM AppInfo WHERE appID =:appID")
+    AppInfo getAppInfo(int appID);
 }

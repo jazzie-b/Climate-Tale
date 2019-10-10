@@ -1,5 +1,6 @@
 package com.example.climatetale.Data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -42,5 +43,9 @@ public interface QuizDao {
     //get if the quiz is passed
     @Query("SELECT hasPassed FROM Quiz WHERE quizID =:quizID")
     boolean getHasPassed(int quizID);
+
+    //get quiz object
+    @Query("SELECT * FROM Quiz WHERE quizID =:quizID")
+    LiveData<Quiz> getQuiz(int quizID);
 
 }
