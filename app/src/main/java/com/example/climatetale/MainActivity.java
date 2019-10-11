@@ -1,24 +1,27 @@
 package com.example.climatetale;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.climatetale.Data.UserInfo;
 import com.example.climatetale.ViewModels.UserViewModel;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private UserViewModel userViewModel;
+    public String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +31,8 @@ public class MainActivity extends AppCompatActivity {
         configureBtnOpenTopic();
 
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-        userViewModel.getUserInfo().observe(this, new Observer<UserInfo>() {
-            @Override
-            public void onChanged(UserInfo userInfo) {
-                Toast.makeText(MainActivity.this, "Observed", Toast.LENGTH_SHORT).show();
+        addNameDialog(this);
 
-            }
-        });
     }
 
     //Configure button to move to quiz
@@ -50,5 +48,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void addNameDialog(Context c) {
+        final EditText editText = new EditText(c);
+        AlertDialog dialog = new AlertDialog.Builder(c)
+                .setTitle("Welcome")
+                .setMessage("What is your name?")
+                .setView(editText)
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        name = String.valueOf(editText.getText());
+                        userViewModel.updateUserName(name);
+                        TextView title = findViewById(R.id.txtName);
+                        title.setText("Welcome " + userViewModel.getUserName());
+                    }
+                })
+                .create();
+        dialog.show();
     }
 }

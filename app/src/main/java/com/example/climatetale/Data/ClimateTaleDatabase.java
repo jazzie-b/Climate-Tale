@@ -28,6 +28,7 @@ public abstract class ClimateTaleDatabase extends RoomDatabase {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     ClimateTaleDatabase.class, "climate_tale_database")
                     .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
                     .addCallback(roomCallBack)
                     .build();
         }
@@ -40,7 +41,7 @@ public abstract class ClimateTaleDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             //Add data to database at load
-            new PopulateDbAsyncTask(instance);
+            new PopulateDbAsyncTask(instance).execute();
         }
     };
 
@@ -70,7 +71,7 @@ public abstract class ClimateTaleDatabase extends RoomDatabase {
             appInfoDao.insert(new AppInfo(1, 1,1));
             userInfoDao.insert(new UserInfo(1,
                     "Hello", 0,0,
-                    0,01));
+                    0,1));
             chapterDao.insert(new Chapter(1, 1,
                     "What is Climate Change?", 1,
                     false));

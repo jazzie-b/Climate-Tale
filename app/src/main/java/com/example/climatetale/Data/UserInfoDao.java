@@ -22,7 +22,7 @@ public interface UserInfoDao {
     //Queries
     //Select user info
     @Query("SELECT * FROM UserInfo WHERE userID =:userID")
-    LiveData<UserInfo> getUserInfo(int userID);
+    UserInfo getUserInfo(int userID);
 
     //Update user's name
     @Query("UPDATE UserInfo SET name =:name WHERE userID = :userID ")

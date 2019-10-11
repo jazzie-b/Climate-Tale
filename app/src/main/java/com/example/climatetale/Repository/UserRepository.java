@@ -3,24 +3,20 @@ package com.example.climatetale.Repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.climatetale.Data.ClimateTaleDatabase;
 import com.example.climatetale.Data.UserInfo;
 import com.example.climatetale.Data.UserInfoDao;
 
 public class UserRepository {
     private UserInfoDao userInfoDao;
-    private LiveData<UserInfo> userInfo;
-    private LiveData<String> userName;
+    private UserInfo userInfo;
+    private String userName;
 
     public UserRepository(Application application){
         //Connect to database
         ClimateTaleDatabase db = ClimateTaleDatabase.getInstance(application);
         //get dao
         userInfoDao = db.getUserInfoDao();
-        userInfo = userInfoDao.getUserInfo(1);
     }
 
     //Database operations
@@ -32,12 +28,19 @@ public class UserRepository {
         new UpdateUserInfoAsyncTask(userInfoDao).execute(userInfo);
     }
 
-    //Live data objects methods
-    public LiveData<UserInfo> getUserInfo() {
+    //objects methods
+    public UserInfo getUserInfo() {
         return userInfo;
     }
 
+    public void updateUserName(String name){
+        userName = name;
+        userInfoDao.updateName(name,1);
+    }
 
+    public String getUserName(){
+        return userInfoDao.getUserInfo(1).name;
+    }
 
     //Access Database operations
     private static class InsertUserInfoAsyncTask extends AsyncTask<UserInfo, Void, Void>{
@@ -67,5 +70,21 @@ public class UserRepository {
             return null;
         }
     }
+
+    public static class UpdateUserNameAsyncTask extends AsyncTask<String, Void, Void>{
+        private  UserInfoDao userInfoDao;
+
+        private UpdateUserNameAsyncTask(UserInfoDao userInfoDao){
+            this.userInfoDao = userInfoDao;
+        }
+
+        @Override
+        protected Void doInBackground(String... strings){
+            userInfoDao.updateName(strings[0], 01);
+            return null;
+        }
+
+    }
+
 
    }

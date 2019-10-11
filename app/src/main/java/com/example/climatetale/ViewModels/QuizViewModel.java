@@ -1,6 +1,8 @@
 package com.example.climatetale.ViewModels;
 
 import android.app.Application;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -59,8 +61,10 @@ public class QuizViewModel extends AndroidViewModel {
 
     //Get QuizName to display
     public String getQuizName(int index){
+        Log.d("quiz", "HERE");
         int currentQuizID = questionList.get(index).quizID;
         String quizName = quizRepository.getQuiz(currentQuizID).quizName;
+
 
         return quizName;
     }
