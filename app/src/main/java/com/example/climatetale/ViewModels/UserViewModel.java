@@ -1,4 +1,4 @@
-package com.example.climatetale.ViewModels;
+/*package com.example.climatetale.ViewModels;
 
 import android.app.Application;
 
@@ -40,4 +40,4 @@ public class UserViewModel extends AndroidViewModel {
         repository.updateUserName(name);
     }
 
-}
+}*/

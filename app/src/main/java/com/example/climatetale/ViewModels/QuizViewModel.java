@@ -1,4 +1,4 @@
-package com.example.climatetale.ViewModels;
+/*package com.example.climatetale.ViewModels;
 
 import android.app.Application;
 import android.util.Log;
@@ -48,7 +48,7 @@ public class QuizViewModel extends AndroidViewModel {
         questionList = questionRepository.populateQuestionList();
     }
 
-    /*Need to display values to interface
+    Need to display values to interface
     * - Chapter
     * - Topic Name
     * - Question number
@@ -57,7 +57,7 @@ public class QuizViewModel extends AndroidViewModel {
     * - Selection
     * - Answer
     * - IsCorrect
-    * */
+    *
 
     //Get QuizName to display
     public String getQuizName(int index){
@@ -128,4 +128,4 @@ public class QuizViewModel extends AndroidViewModel {
 
     //Load complete screen once completed
 
-}
+}*/
