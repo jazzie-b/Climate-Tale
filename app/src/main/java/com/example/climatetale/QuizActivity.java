@@ -137,7 +137,7 @@ public class QuizActivity extends AppCompatActivity {
 
         //Set values to interface
         txtChapterName.setText("CHAPTER " + chapterNum);
-        txtTopicName.setText("TOPIC" + topicNum + ": " + topicName.toUpperCase());
+        txtTopicName.setText("TOPIC " + topicNum + ": " + topicName.toUpperCase());
         txtQuestionNum.setText("QUESTION " + questionNum);
         txtQuestion.setText(questionList.get(index).question);
         txtFeedback.setVisibility(View.INVISIBLE);

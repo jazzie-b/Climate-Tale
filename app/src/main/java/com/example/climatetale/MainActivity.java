@@ -3,7 +3,6 @@ package com.example.climatetale;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     public String name;
     public TextView title;
+    public TextView topic;
+    public Button btnOpenTopic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +35,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Hide title
+        //Hide titles
         title = findViewById(R.id.txtName);
-        title.setVisibility(View.INVISIBLE);
+        topic = findViewById(R.id.txtTopic);
+        topic.setVisibility(View.INVISIBLE);
+        btnOpenTopic = (Button)findViewById(R.id.btnOpenTopic);
+        btnOpenTopic.setVisibility(View.INVISIBLE);
 
         //Populate database (need to happen only once)
         populateDatabase();
 
         //Configure buttons
+        configureBtnOpenChapter();
         configureBtnOpenTopic();
 
         //needs to only happen if the name hasnt been already added
@@ -57,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //AppInfo
-                AppInfo appInfo = new AppInfo(1, 1,1);
+                AppInfo appInfo = new AppInfo(1, 1,3);
                 ClimateTaleDatabase.getInstance(getApplicationContext()).appInfoDao().insert(appInfo);
                 //UserInfo
                 UserInfo userInfo = new UserInfo(1,
@@ -116,10 +121,23 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
+    //Configure btn to show topids
+    private void configureBtnOpenChapter(){
+        final Button btnOpenChapter = (Button)findViewById(R.id.btnChapter1);
+
+        btnOpenChapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Open to topic menu
+                topic.setVisibility(View.VISIBLE);
+                btnOpenTopic.setVisibility(View.VISIBLE);
+
+            }
+        });
+    }
+
     //Configure button to move to topic page
     private void configureBtnOpenTopic(){
-
-        Button btnOpenTopic = (Button)findViewById(R.id.btnOpenTopic);
 
         btnOpenTopic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
                         ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().updateName(name, 1);
                         String currName = ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().getName(1);
                         title.setText("Welcome " + currName);
-                        title.setVisibility(View.VISIBLE);
                     }
                 })
                 .create();
