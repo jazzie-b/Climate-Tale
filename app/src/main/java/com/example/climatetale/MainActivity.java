@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -142,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //gets users name and displays it
                         name = String.valueOf(editText.getText());
                         ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().updateName(name, 1);
                         String currName = ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().getName(1);
