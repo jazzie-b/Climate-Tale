@@ -50,4 +50,8 @@ public interface TopicDao {
     //Get whether the topic is completed
     @Query("SELECT completedTopic FROM Topic WHERE topicID =:topicID")
     boolean getCompletedTopic(int topicID);
+
+    //get chapter ID from topic ID
+    @Query("SELECT chapterID FROM Topic WHERE topicID=:topicID ")
+    int getChapterID(int topicID);
 }

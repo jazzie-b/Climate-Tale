@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
                 ClimateTaleDatabase.getInstance(getApplicationContext()).chapterDao().insert(chapter);
                 //Topic
                 Topic topic = new Topic(101, 1,
-                        "CO2 in Atmosphere",1,false);
+                        "CO₂ in Atmosphere",1,false);
                 ClimateTaleDatabase.getInstance(getApplicationContext()).topicDao().insert(topic);
                 //Quiz
-                Quiz quiz = new Quiz(10101,"Topic 1: CO2 in Atmosphere",
+                Quiz quiz = new Quiz(10101,"Topic 1: CO2 in the Atmosphere",
                         101,false);
                 ClimateTaleDatabase.getInstance(getApplicationContext()).quizDao().insert(quiz);
                 //Questions

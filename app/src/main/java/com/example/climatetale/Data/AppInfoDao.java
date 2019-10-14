@@ -10,6 +10,7 @@ import androidx.room.Update;
 @Dao
 public interface AppInfoDao {
     //Actions
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(AppInfo appInfo);
 
     @Update

@@ -48,4 +48,8 @@ public interface QuizDao {
     @Query("SELECT * FROM Quiz WHERE quizID =:quizID")
     Quiz getQuiz(int quizID);
 
+    //get topic ID from quiz id
+    @Query("SELECT topicID FROM Quiz WHERE quizID=:quizID")
+    int getTopicID(int quizID);
+
 }
