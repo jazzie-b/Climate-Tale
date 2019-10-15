@@ -90,9 +90,11 @@ public class QuizActivity extends AppCompatActivity {
                     if(index < 3) {
                         doQuiz();
                     }else{
-                       //if not more answers
-                       //load final screen
-                       startActivity(new Intent(QuizActivity.this, QuizFinishedActivity.class));
+                        //if not more answers, update progress to display in chart
+                        ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().updateOverallProgress(1,1);
+                        ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().updateOverallTopic(1, 1);
+                        //load final screen
+                        startActivity(new Intent(QuizActivity.this, QuizFinishedActivity.class));
                     }
                 }else{
                     //if answer is incorrect, inform user

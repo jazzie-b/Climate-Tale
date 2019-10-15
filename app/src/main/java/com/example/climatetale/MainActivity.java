@@ -43,15 +43,16 @@ public class MainActivity extends AppCompatActivity {
         btnOpenTopic.setVisibility(View.INVISIBLE);
 
         //Populate database (need to happen only once)
-        populateDatabase();
+        if(ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao() == null) {
+            populateDatabase();
+        }
 
         //Configure buttons
         configureBtnOpenChapter();
         configureBtnOpenTopic();
 
-        //needs to only happen if the name hasnt been already added
-        //Ask question
-        addNameDialog(this);
+        //ask users name
+        askName();
 
     }
 
@@ -62,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //AppInfo
-                AppInfo appInfo = new AppInfo(1, 1,3);
+                AppInfo appInfo = new AppInfo(1, 3,1);
                 ClimateTaleDatabase.getInstance(getApplicationContext()).appInfoDao().insert(appInfo);
                 //UserInfo
                 UserInfo userInfo = new UserInfo(1,
-                        "Hello", 0,0,
+                        "HELLO WORLD", 0,0,
                         0,1);
                 ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().insert(userInfo);
                 //Chapter
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-    //Configure btn to show topids
+    //Configure btn to show topics
     private void configureBtnOpenChapter(){
         final Button btnOpenChapter = (Button)findViewById(R.id.btnChapter1);
 
@@ -147,6 +148,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    //needs to only happen if the name hasn't been already added
+    private void askName() {
+        String currName = ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().getName(1);
+        //Ask question, only if database is default value
+        if (currName.equals("HELLO WORLD")) {
+            addNameDialog(this);
+        } else {
+            title.setText("Welcome " + currName);
+        }
     }
 
     //Opens up dialog to ask users name

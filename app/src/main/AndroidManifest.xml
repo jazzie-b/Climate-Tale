@@ -19,6 +19,7 @@
         <activity android:name=".TopicActivity"></activity>
         <activity android:name=".QuizActivity"></activity>
         <activity android:name=".QuizFinishedActivity"></activity>
+        <activity android:name=".Topic2Activity"></activity>
     </application>
 
 </manifest>
