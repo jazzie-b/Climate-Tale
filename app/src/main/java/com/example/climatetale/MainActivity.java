@@ -43,9 +43,7 @@ public class MainActivity extends AppCompatActivity {
         btnOpenTopic.setVisibility(View.INVISIBLE);
 
         //Populate database (need to happen only once)
-        if(ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao() == null) {
-            populateDatabase();
-        }
+        populateDatabase();
 
         //Configure buttons
         configureBtnOpenChapter();
@@ -85,27 +83,27 @@ public class MainActivity extends AppCompatActivity {
                 ClimateTaleDatabase.getInstance(getApplicationContext()).quizDao().insert(quiz);
                 //Questions
                 Question question = new Question(101011,10101,
-                        "Sample Quiz 1 Question 1",
-                        "Sample Option 1 Question 1",
-                        "Sample Option 2 Question 1",
-                        "Sample Option 3 Question 1",
-                        "Sample Option 4 Question 1",
+                        "What layer of the atmosphere does weather occur?",
+                        "Stratosphere",
+                        "Troposphere",
+                        "Mesosphere",
+                        "Exosphere",
                         0);
                 ClimateTaleDatabase.getInstance(getApplicationContext()).questionDao().insert(question);
                 question = new Question(101012,10101,
-                        "Sample Quiz 1 Question 2",
-                        "Sample Option 1 Question 2",
-                        "Sample Option 2 Question 2",
-                        "Sample Option 3 Question 2",
-                        "Sample Option 4 Question 2",
+                        "What is the most abundant gas in our atmosphere?",
+                        "Nitrogen",
+                        "Oxygen",
+                        "Carbon Dioxide",
+                        "Helium",
                         0);
                 ClimateTaleDatabase.getInstance(getApplicationContext()).questionDao().insert(question);
                 question = new Question(101013,10101,
-                        "Sample Quiz 1 Question 3",
-                        "Sample Option 1 Question 3",
-                        "Sample Option 2 Question 3",
-                        "Sample Option 3 Question 3",
-                        "Sample Option 4 Question 3",
+                        "What type of gas is carbon dioxide?",
+                        "Greenhouse Gas",
+                        "Laughing Gas",
+                        "Natural Gas",
+                        "Greyhouse Gas",
                         0);
                 ClimateTaleDatabase.getInstance(getApplicationContext()).questionDao().insert(question);
                 //Answers
@@ -152,13 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
     //needs to only happen if the name hasn't been already added
     private void askName() {
-        String currName = ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().getName(1);
-        //Ask question, only if database is default value
-        if (currName.equals("HELLO WORLD")) {
-            addNameDialog(this);
-        } else {
-            title.setText("Welcome " + currName);
-        }
+        //Ask question
+        addNameDialog(this);
     }
 
     //Opens up dialog to ask users name

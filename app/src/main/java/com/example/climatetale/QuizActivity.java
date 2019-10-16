@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -181,20 +180,12 @@ public class QuizActivity extends AppCompatActivity {
         //check which option was selected
         if(answer.getId() == opt1.getId()){
             selected = 1;
-            message = String.valueOf(selected);
-            Log.d("SELECTED: ", message);
         }else if(answer.getId() == opt2.getId()){
             selected = 2;
-            message = String.valueOf(selected);
-            Log.d("SELECTED: ", message);
         }else if(answer.getId() == opt3.getId()){
             selected = 3;
-            message = String.valueOf(selected);
-            Log.d("SELECTED: ", message);
         }else{
             selected = 4;
-            message = String.valueOf(selected);
-            Log.d("SELECTED: ", message);
         }
 
         return selected;

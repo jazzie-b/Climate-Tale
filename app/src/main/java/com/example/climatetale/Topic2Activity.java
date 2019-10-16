@@ -16,9 +16,11 @@ public class Topic2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topic2);
 
+        //set up view elements
         setUpMenuBtn();
     }
 
+    //set up button to return to menu
     public void setUpMenuBtn(){
         menuBtn = findViewById(R.id.btnReturnMenu);
         menuBtn.setOnClickListener(new View.OnClickListener() {
