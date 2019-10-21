@@ -21,7 +21,7 @@ public class Topic2Activity extends AppCompatActivity {
     }
 
     //set up button to return to menu
-    public void setUpMenuBtn(){
+    private void setUpMenuBtn(){
         menuBtn = findViewById(R.id.btnReturnMenu);
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override

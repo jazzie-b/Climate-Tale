@@ -25,8 +25,8 @@ import com.example.climatetale.Data.UserInfo;
 public class MainActivity extends AppCompatActivity {
 
     public String name;
-    public TextView title;
-    public TextView topic;
+    public TextView txtTitle;
+    public TextView txtTopic;
     public Button btnOpenTopic;
 
     @Override
@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Hide titles
-        title = findViewById(R.id.txtName);
-        topic = findViewById(R.id.txtTopic);
-        topic.setVisibility(View.INVISIBLE);
+        txtTitle = findViewById(R.id.txtName);
+        txtTopic = findViewById(R.id.txtTopic);
+        txtTopic.setVisibility(View.INVISIBLE);
         btnOpenTopic = (Button)findViewById(R.id.btnOpenTopic);
         btnOpenTopic.setVisibility(View.INVISIBLE);
 
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Open to topic menu
-                topic.setVisibility(View.VISIBLE);
+                txtTopic.setVisibility(View.VISIBLE);
                 btnOpenTopic.setVisibility(View.VISIBLE);
 
             }
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //needs to only happen if the name hasn't been already added
+    //Get users name
     private void askName() {
         //Ask question
         addNameDialog(this);
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                         name = String.valueOf(editText.getText());
                         ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().updateName(name, 1);
                         String currName = ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().getName(1);
-                        title.setText("Welcome " + currName);
+                        txtTitle.setText("Welcome " + currName);
                     }
                 })
                 .create();

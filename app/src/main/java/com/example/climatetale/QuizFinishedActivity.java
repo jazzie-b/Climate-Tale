@@ -99,7 +99,7 @@ public class QuizFinishedActivity extends AppCompatActivity {
     }
 
     //load next chapter
-    public void getNextTopic(){
+    private void getNextTopic(){
         btnNextTopic = findViewById(R.id.btnNextTopic);
 
         btnNextTopic.setOnClickListener(new View.OnClickListener() {

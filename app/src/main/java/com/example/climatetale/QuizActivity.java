@@ -70,7 +70,7 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
-    public void setNextQuestionBtn(){
+    private void setNextQuestionBtn(){
 
         btnNextQ.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,14 +106,14 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     //Do quiz
-    public void doQuiz() {
+    private void doQuiz() {
         //set question
         setView(index);
     }
 
 
     //Set view as current question
-    public void setView(int index){
+    private void setView(int index){
         //Get current required question
         Question currentQ = questionList.get(index);
 
@@ -151,7 +151,7 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
-    public void populateList(){
+    private void populateList(){
         //Quiz ID = 10101, Question ID = 101011, 101012, 10101
         Question currentQ;
         int questionID = 101011;
@@ -168,14 +168,12 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
-    public int checkAnswer(){
+    private int checkAnswer(){
         //get selected button
         int selectedRadio = optionRadio.getCheckedRadioButtonId();
         RadioButton answer = findViewById(selectedRadio);
 
         int selected = 0;
-
-        String message;
 
         //check which option was selected
         if(answer.getId() == opt1.getId()){
