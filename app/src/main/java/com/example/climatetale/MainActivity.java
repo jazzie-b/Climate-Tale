@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 answer = new Answer(1010131,
                         101013,1,false);
                 ClimateTaleDatabase.getInstance(getApplicationContext()).answerDao().insert(answer);
+
             }
         }).start();
     }
