@@ -50,7 +50,14 @@ public class MainActivity extends AppCompatActivity {
         configureBtnOpenTopic();
 
         //ask users name
-        askName();
+        String name = ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().getName(01);
+        if (name.equals("HELLO WORLD")) {
+            askName();
+        }
+
+        if (!name.equals("HELLO WORLD")){
+            displayName();
+        }
 
     }
 
@@ -152,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
     private void askName() {
         //Ask question
         addNameDialog(this);
+
     }
 
     //Opens up dialog to ask users name
@@ -167,11 +175,17 @@ public class MainActivity extends AppCompatActivity {
                         //gets users name and displays it
                         name = String.valueOf(editText.getText());
                         ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().updateName(name, 1);
-                        String currName = ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().getName(1);
-                        txtTitle.setText("Welcome " + currName);
+                        displayName();
                     }
                 })
                 .create();
         dialog.show();
+
+    }
+
+    //display the users name on the title screen
+    public void displayName(){
+        String currName = ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().getName(1);
+        txtTitle.setText("Welcome " + currName);
     }
 }
