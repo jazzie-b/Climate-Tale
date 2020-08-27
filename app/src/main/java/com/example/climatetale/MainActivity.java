@@ -12,14 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.climatetale.Data.Answer;
-import com.example.climatetale.Data.AppInfo;
-import com.example.climatetale.Data.Chapter;
-import com.example.climatetale.Data.ClimateTaleDatabase;
-import com.example.climatetale.Data.Question;
-import com.example.climatetale.Data.Quiz;
-import com.example.climatetale.Data.Topic;
-import com.example.climatetale.Data.UserInfo;
+import com.example.climatetale.Data.*;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //set database instance
+        ClimateTaleDatabase climateTaleDB = ClimateTaleDatabase.getInstance(getApplicationContext());
+
         //Hide titles
         txtTitle = findViewById(R.id.txtName);
         txtTopic = findViewById(R.id.txtTopic);
@@ -42,90 +38,22 @@ public class MainActivity extends AppCompatActivity {
         btnOpenTopic = (Button)findViewById(R.id.btnOpenTopic);
         btnOpenTopic.setVisibility(View.INVISIBLE);
 
-        //Populate database (need to happen only once)
-        populateDatabase();
-
         //Configure buttons
         configureBtnOpenChapter();
         configureBtnOpenTopic();
 
-        //ask users name
-        String name = ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().getName(01);
+        //Get name in db
+        String name = climateTaleDB.userInfoDao().getName(1);
+
+        //in name in db is default ask the user for their name
         if (name.equals("HELLO WORLD")) {
-            askName();
+            askName(climateTaleDB);
         }
-
+        //if name in db isn't default, then display the name
         if (!name.equals("HELLO WORLD")){
-            displayName();
+            displayName(climateTaleDB);
         }
 
-    }
-
-    //Add items to DB
-    public void populateDatabase(){
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //AppInfo
-                AppInfo appInfo = new AppInfo(1, 3,1);
-                ClimateTaleDatabase.getInstance(getApplicationContext()).appInfoDao().insert(appInfo);
-                //UserInfo
-                UserInfo userInfo = new UserInfo(1,
-                        "HELLO WORLD", 0,0,
-                        0,1);
-                ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().insert(userInfo);
-                //Chapter
-                Chapter chapter = new Chapter(1, 1,
-                        "What is Climate Change?", 1,
-                        false);
-                ClimateTaleDatabase.getInstance(getApplicationContext()).chapterDao().insert(chapter);
-                //Topic
-                Topic topic = new Topic(101, 1,
-                        "CO₂ in Atmosphere",1,false);
-                ClimateTaleDatabase.getInstance(getApplicationContext()).topicDao().insert(topic);
-                //Quiz
-                Quiz quiz = new Quiz(10101,"Topic 1: CO2 in the Atmosphere",
-                        101,false);
-                ClimateTaleDatabase.getInstance(getApplicationContext()).quizDao().insert(quiz);
-                //Questions
-                Question question = new Question(101011,10101,
-                        "What layer of the atmosphere does weather occur?",
-                        "Stratosphere",
-                        "Troposphere",
-                        "Mesosphere",
-                        "Exosphere",
-                        0);
-                ClimateTaleDatabase.getInstance(getApplicationContext()).questionDao().insert(question);
-                question = new Question(101012,10101,
-                        "What is the most abundant gas in our atmosphere?",
-                        "Nitrogen",
-                        "Oxygen",
-                        "Carbon Dioxide",
-                        "Helium",
-                        0);
-                ClimateTaleDatabase.getInstance(getApplicationContext()).questionDao().insert(question);
-                question = new Question(101013,10101,
-                        "What type of gas is carbon dioxide?",
-                        "Greenhouse Gas",
-                        "Laughing Gas",
-                        "Natural Gas",
-                        "Greyhouse Gas",
-                        0);
-                ClimateTaleDatabase.getInstance(getApplicationContext()).questionDao().insert(question);
-                //Answers
-                Answer answer = new Answer(1010111,
-                        101011,2,false);
-                ClimateTaleDatabase.getInstance(getApplicationContext()).answerDao().insert(answer);
-                answer = new Answer(1010121,
-                        101012,1,false);
-                ClimateTaleDatabase.getInstance(getApplicationContext()).answerDao().insert(answer);
-                answer = new Answer(1010131,
-                        101013,1,false);
-                ClimateTaleDatabase.getInstance(getApplicationContext()).answerDao().insert(answer);
-
-            }
-        }).start();
     }
 
     //Configure btn to show topics
@@ -157,15 +85,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Get users name
-    private void askName() {
+    private void askName(ClimateTaleDatabase climateTaleDB) {
         //Ask question
-        addNameDialog(this);
-
+        addNameDialog(this, climateTaleDB);
     }
 
     //Opens up dialog to ask users name
-    public void addNameDialog(Context c) {
+    public void addNameDialog(Context c, final ClimateTaleDatabase climateTaleDB) {
         final EditText editText = new EditText(c);
+        //create alert box
         AlertDialog dialog = new AlertDialog.Builder(c)
                 .setTitle("Welcome")
                 .setMessage("What is your name?")
@@ -175,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //gets users name and displays it
                         name = String.valueOf(editText.getText());
-                        ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().updateName(name, 1);
-                        displayName();
+                        climateTaleDB.userInfoDao().updateName(name, 1);
+                        displayName(climateTaleDB);
                     }
                 })
                 .create();
@@ -185,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //display the users name on the title screen
-    public void displayName(){
-        String currName = ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().getName(1);
+    public void displayName(ClimateTaleDatabase climateTaleDB){
+        String currName = climateTaleDB.userInfoDao().getName(1);
         txtTitle.setText("Welcome " + currName);
     }
 }

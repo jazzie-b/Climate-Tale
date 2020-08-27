@@ -35,15 +35,18 @@ public class QuizFinishedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_finish);
 
+        //set database instance
+        ClimateTaleDatabase climateTaleDB = ClimateTaleDatabase.getInstance(getApplicationContext());
+
         //set up Pie Chart
-        setUpPieChart();
+        setUpPieChart(climateTaleDB);
 
         //set up labels
-        String userName = ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().getName(1);
+        String userName = climateTaleDB.userInfoDao().getName(1);
         TextView txtCongrats = findViewById(R.id.txtCongrats);
         txtCongrats.setText("Congratulations\n" + userName + "!\nYou passed the quiz.");
-        totalTopics = ClimateTaleDatabase.getInstance(getApplicationContext()).appInfoDao().getTotalTopics(1);
-        progressTopics = ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().getProgressTopic(1);
+        totalTopics = climateTaleDB.appInfoDao().getTotalTopics(1);
+        progressTopics = climateTaleDB.userInfoDao().getProgressTopic(1);
         TextView txtStatus = findViewById(R.id.txtStatus);
         txtStatus.setText("You have completed\n" + progressTopics + " topic(s) out of " + totalTopics + " in chapter 1");
 
@@ -52,7 +55,7 @@ public class QuizFinishedActivity extends AppCompatActivity {
     }
 
     //create pie chart
-    private void setUpPieChart() {
+    private void setUpPieChart(ClimateTaleDatabase climateTaleDB) {
 
         //get chart and set properties
         PieChart pieChartResult = findViewById(R.id.pieChart);
@@ -77,8 +80,8 @@ public class QuizFinishedActivity extends AppCompatActivity {
         pieChartDes.setEnabled(false);
 
         //get total amount of topics, progress and calculate percentage left to complete
-        totalTopics = ClimateTaleDatabase.getInstance(getApplicationContext()).appInfoDao().getTotalTopics(1);
-        progressTopics = ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().getProgressTopic(1);
+        totalTopics = climateTaleDB.appInfoDao().getTotalTopics(1);
+        progressTopics = climateTaleDB.userInfoDao().getProgressTopic(1);
         int progressLeft = totalTopics - progressTopics;
 
         //add two required values to dataset for chart

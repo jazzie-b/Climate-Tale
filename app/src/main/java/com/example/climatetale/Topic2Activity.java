@@ -13,6 +13,7 @@ public class Topic2Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Set view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topic2);
 

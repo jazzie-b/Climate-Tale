@@ -2,15 +2,15 @@ package com.example.climatetale.Data;
 
 import android.content.Context;
 
-import androidx.room.Database;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
+import androidx.room.*;
 
 @Database(entities ={AppInfo.class, UserInfo.class, Chapter.class, Topic.class, Quiz.class, Question.class, Answer.class}, exportSchema = false, version = 1)
 public abstract class ClimateTaleDatabase extends RoomDatabase {
 
-    private static ClimateTaleDatabase INSTANCE;
+    //Database
+    private static ClimateTaleDatabase climateTaleDB;
 
+    //Entities
     public abstract AppInfoDao appInfoDao();
     public abstract UserInfoDao userInfoDao();
     public abstract ChapterDao chapterDao();
@@ -19,14 +19,22 @@ public abstract class ClimateTaleDatabase extends RoomDatabase {
     public abstract QuestionDao questionDao();
     public abstract AnswerDao answerDao();
 
-    public static synchronized ClimateTaleDatabase getInstance(Context context){
-        if(INSTANCE == null){
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ClimateTaleDatabase.class, "climate-tale-database")
-            .allowMainThreadQueries()
-            .fallbackToDestructiveMigration()
-            .build();
+    //Used to get instance of Database
+    public static ClimateTaleDatabase getInstance(Context context) {
+        if (null == climateTaleDB) {
+            climateTaleDB = buildDatabaseInstance(context);
         }
-        return INSTANCE;
+
+        return climateTaleDB;
+    }
+
+    //Build database
+    private static ClimateTaleDatabase buildDatabaseInstance(Context context) {
+        return Room.databaseBuilder(context, ClimateTaleDatabase.class, "climateTaleDB")
+                .createFromAsset("database/climate-tale-database.db")
+                .fallbackToDestructiveMigration()
+                .allowMainThreadQueries()
+                .build();
     }
 
 }

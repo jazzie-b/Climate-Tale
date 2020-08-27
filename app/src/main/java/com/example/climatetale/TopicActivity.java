@@ -12,30 +12,34 @@ import com.example.climatetale.Data.ClimateTaleDatabase;
 
 public class TopicActivity extends AppCompatActivity {
 
+    //Variables
     public TextView txtChapterTitle;
     public TextView txtTopicTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Set view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.topic);
 
-        //configure view
-        configureTitles();
-        configureBtnStartQuiz();
+        //set database instance
+        ClimateTaleDatabase climateTaleDB = ClimateTaleDatabase.getInstance(getApplicationContext());
 
+        //configure view
+        configureTitles(climateTaleDB);
+        configureBtnStartQuiz();
     }
 
     //configure titles for layout
-    private void configureTitles() {
+    private void configureTitles(ClimateTaleDatabase climateTaleDB) {
         //Get IDs
         int topicID = 101;
-        int chapterID = ClimateTaleDatabase.getInstance(getApplicationContext()).topicDao().getChapterID(topicID);
+        int chapterID = climateTaleDB.topicDao().getChapterID(topicID);
 
         //Get values needed to display
-        int chapterNum = ClimateTaleDatabase.getInstance(getApplicationContext()).chapterDao().getChapterNumber(chapterID);
-        int topicNum= ClimateTaleDatabase.getInstance(getApplicationContext()).topicDao().getTopicNumber(topicID);
-        String topicName= ClimateTaleDatabase.getInstance(getApplicationContext()).topicDao().getTopicName(topicID);
+        int chapterNum = climateTaleDB.chapterDao().getChapterNumber(chapterID);
+        int topicNum = climateTaleDB.topicDao().getTopicNumber(topicID);
+        String topicName = climateTaleDB.topicDao().getTopicName(topicID);
 
         //find text views and update content
         txtChapterTitle = findViewById(R.id.txtChapterTitle);

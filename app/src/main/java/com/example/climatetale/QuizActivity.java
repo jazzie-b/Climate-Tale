@@ -44,9 +44,14 @@ public class QuizActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Set View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_question);
 
+        //set database instance
+        ClimateTaleDatabase climateTaleDB = ClimateTaleDatabase.getInstance(getApplicationContext());
+
+        //Configure interface to variable
         txtChapterName = findViewById(R.id.txtChapter);
         txtTopicName = findViewById(R.id.txtTopicName);
         txtQuestionNum = findViewById(R.id.txtQuestionNum);
@@ -61,16 +66,16 @@ public class QuizActivity extends AppCompatActivity {
 
         //Create arrayList and populate it
         questionList = new ArrayList<>();
-        populateList();
+        populateList(climateTaleDB);
 
-        setNextQuestionBtn();
+        setNextQuestionBtn(climateTaleDB);
 
         //Start Quiz
-        doQuiz();
+        doQuiz(climateTaleDB);
 
     }
 
-    private void setNextQuestionBtn(){
+    private void setNextQuestionBtn(final ClimateTaleDatabase climateTaleDB){
 
         btnNextQ.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,18 +85,18 @@ public class QuizActivity extends AppCompatActivity {
 
                 //get correct answer and users answer
                 selectedAnswer = checkAnswer();
-                answer = ClimateTaleDatabase.getInstance(getApplicationContext()).answerDao().getAnswer(answerID);
+                answer = climateTaleDB.answerDao().getAnswer(answerID);
 
                 //check users answer against correct answer
                 if(answer == selectedAnswer){
                     //if correct check there are more questions to load and load them
                     index++;
                     if(index < 3) {
-                        doQuiz();
+                        doQuiz(climateTaleDB);
                     }else{
                         //if not more answers, update progress to display in chart
-                        ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().updateOverallProgress(1,1);
-                        ClimateTaleDatabase.getInstance(getApplicationContext()).userInfoDao().updateOverallTopic(1, 1);
+                        climateTaleDB.userInfoDao().updateOverallProgress(1,1);
+                        climateTaleDB.userInfoDao().updateOverallTopic(1, 1);
                         //load final screen
                         startActivity(new Intent(QuizActivity.this, QuizFinishedActivity.class));
                     }
@@ -106,26 +111,26 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     //Do quiz
-    private void doQuiz() {
+    private void doQuiz(ClimateTaleDatabase climateTaleDB) {
         //set question
-        setView(index);
+        setView(index, climateTaleDB);
     }
 
 
     //Set view as current question
-    private void setView(int index){
+    private void setView(int index, ClimateTaleDatabase climateTaleDB){
         //Get current required question
         Question currentQ = questionList.get(index);
 
         //Get IDs
         int quizID = questionList.get(index).quizID;
-        int topicID = ClimateTaleDatabase.getInstance(getApplicationContext()).quizDao().getTopicID(quizID);
-        int chapterID = ClimateTaleDatabase.getInstance(getApplicationContext()).topicDao().getChapterID(topicID);
+        int topicID = climateTaleDB.quizDao().getTopicID(quizID);
+        int chapterID = climateTaleDB.topicDao().getChapterID(topicID);
 
         //Get values needed to display
-        int chapterNum = ClimateTaleDatabase.getInstance(getApplicationContext()).chapterDao().getChapterNumber(chapterID);
-        int topicNum= ClimateTaleDatabase.getInstance(getApplicationContext()).topicDao().getTopicNumber(topicID);
-        String topicName= ClimateTaleDatabase.getInstance(getApplicationContext()).topicDao().getTopicName(topicID);
+        int chapterNum = climateTaleDB.chapterDao().getChapterNumber(chapterID);
+        int topicNum= climateTaleDB.topicDao().getTopicNumber(topicID);
+        String topicName= climateTaleDB.topicDao().getTopicName(topicID);
         options = new ArrayList<>();
         options.add(questionList.get(index).option1);
         options.add(questionList.get(index).option2);
@@ -151,7 +156,7 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
-    private void populateList(){
+    private void populateList(ClimateTaleDatabase climateTaleDB){
         //Quiz ID = 10101, Question ID = 101011, 101012, 10101
         Question currentQ;
         int questionID = 101011;
@@ -159,7 +164,7 @@ public class QuizActivity extends AppCompatActivity {
         //populate list
         for(int i = 0; i < 3; i++){
             //Get currentQuestion
-            currentQ = ClimateTaleDatabase.getInstance(getApplicationContext()).questionDao().getQuestionObj(questionID);
+            currentQ = climateTaleDB.questionDao().getQuestionObj(questionID);
             //add to list
             questionList.add(currentQ);
             //Increment
