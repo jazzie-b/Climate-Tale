@@ -72,7 +72,6 @@ public class QuizActivity extends AppCompatActivity {
 
         //Start Quiz
         doQuiz(climateTaleDB);
-
     }
 
     private void setNextQuestionBtn(final ClimateTaleDatabase climateTaleDB){
@@ -148,7 +147,7 @@ public class QuizActivity extends AppCompatActivity {
         txtQuestion.setText(questionList.get(index).question);
         txtFeedback.setVisibility(View.INVISIBLE);
 
-        //need to set radio buttons
+        //Set radio buttons
         opt1.setText(options.get(0));
         opt2.setText(options.get(1));
         opt3.setText(options.get(2));
@@ -156,6 +155,7 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
+    //Populates list with all the questions for quiz
     private void populateList(ClimateTaleDatabase climateTaleDB){
         //Quiz ID = 10101, Question ID = 101011, 101012, 10101
         Question currentQ;
@@ -173,6 +173,7 @@ public class QuizActivity extends AppCompatActivity {
 
     }
 
+    //Checks what answer was selected by user
     private int checkAnswer(){
         //get selected button
         int selectedRadio = optionRadio.getCheckedRadioButtonId();
