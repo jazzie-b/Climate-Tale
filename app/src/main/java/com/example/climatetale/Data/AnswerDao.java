@@ -37,7 +37,7 @@ public interface AnswerDao {
 
     //Get Answer
     @Query("SELECT answer FROM Answer WHERE answerID =:answerID")
-    String getAnswer(int answerID);
+    int getAnswer(int answerID);
 
     //Get Correct
     @Query("SELECT isCorrect FROM Answer WHERE answerID =:answerID")

@@ -1,0 +1,448 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "1c061f704c82d7f768f380e71087748d",
+    "entities": [
+      {
+        "tableName": "AppInfo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`appID` INTEGER NOT NULL, `totalTopics` INTEGER NOT NULL, `totalChapters` INTEGER NOT NULL, PRIMARY KEY(`appID`))",
+        "fields": [
+          {
+            "fieldPath": "appID",
+            "columnName": "appID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalTopics",
+            "columnName": "totalTopics",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalChapters",
+            "columnName": "totalChapters",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "appID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "UserInfo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userID` INTEGER NOT NULL, `name` TEXT, `progressOverall` INTEGER NOT NULL, `progressChapter` INTEGER NOT NULL, `progressTopic` INTEGER NOT NULL, `appID` INTEGER NOT NULL, PRIMARY KEY(`userID`), FOREIGN KEY(`appID`) REFERENCES `AppInfo`(`appID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "userID",
+            "columnName": "userID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "progressOverall",
+            "columnName": "progressOverall",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "progressChapter",
+            "columnName": "progressChapter",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "progressTopic",
+            "columnName": "progressTopic",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appID",
+            "columnName": "appID",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "userID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_UserInfo_appID",
+            "unique": false,
+            "columnNames": [
+              "appID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_UserInfo_appID` ON `${TABLE_NAME}` (`appID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "AppInfo",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "appID"
+            ],
+            "referencedColumns": [
+              "appID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Chapter",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`chapterID` INTEGER NOT NULL, `chapterNumber` INTEGER NOT NULL, `chapterName` TEXT, `appID` INTEGER NOT NULL, `completedChapter` INTEGER NOT NULL, PRIMARY KEY(`chapterID`), FOREIGN KEY(`appID`) REFERENCES `AppInfo`(`appID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "chapterID",
+            "columnName": "chapterID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chapterNumber",
+            "columnName": "chapterNumber",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chapterName",
+            "columnName": "chapterName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "appID",
+            "columnName": "appID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "completedChapter",
+            "columnName": "completedChapter",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "chapterID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Chapter_appID",
+            "unique": false,
+            "columnNames": [
+              "appID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Chapter_appID` ON `${TABLE_NAME}` (`appID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "AppInfo",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "appID"
+            ],
+            "referencedColumns": [
+              "appID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Topic",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`topicID` INTEGER NOT NULL, `topicNumber` INTEGER NOT NULL, `topicName` TEXT, `chapterID` INTEGER NOT NULL, `completedTopic` INTEGER NOT NULL, PRIMARY KEY(`topicID`), FOREIGN KEY(`chapterID`) REFERENCES `Chapter`(`chapterID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "topicID",
+            "columnName": "topicID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "topicNumber",
+            "columnName": "topicNumber",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "topicName",
+            "columnName": "topicName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "chapterID",
+            "columnName": "chapterID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "completedTopic",
+            "columnName": "completedTopic",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "topicID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Topic_chapterID",
+            "unique": false,
+            "columnNames": [
+              "chapterID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Topic_chapterID` ON `${TABLE_NAME}` (`chapterID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Chapter",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "chapterID"
+            ],
+            "referencedColumns": [
+              "chapterID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Quiz",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`quizID` INTEGER NOT NULL, `quizName` TEXT, `topicID` INTEGER NOT NULL, `hasPassed` INTEGER NOT NULL, PRIMARY KEY(`quizID`), FOREIGN KEY(`topicID`) REFERENCES `Topic`(`topicID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "quizID",
+            "columnName": "quizID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quizName",
+            "columnName": "quizName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "topicID",
+            "columnName": "topicID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasPassed",
+            "columnName": "hasPassed",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "quizID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Quiz_topicID",
+            "unique": false,
+            "columnNames": [
+              "topicID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Quiz_topicID` ON `${TABLE_NAME}` (`topicID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Topic",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "topicID"
+            ],
+            "referencedColumns": [
+              "topicID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Question",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`questionID` INTEGER NOT NULL, `quizID` INTEGER NOT NULL, `question` TEXT, `option1` TEXT, `option2` TEXT, `option3` TEXT, `option4` TEXT, `selection` INTEGER NOT NULL, PRIMARY KEY(`questionID`), FOREIGN KEY(`quizID`) REFERENCES `Quiz`(`quizID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "questionID",
+            "columnName": "questionID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quizID",
+            "columnName": "quizID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "question",
+            "columnName": "question",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "option1",
+            "columnName": "option1",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "option2",
+            "columnName": "option2",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "option3",
+            "columnName": "option3",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "option4",
+            "columnName": "option4",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "selection",
+            "columnName": "selection",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "questionID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Question_quizID",
+            "unique": false,
+            "columnNames": [
+              "quizID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Question_quizID` ON `${TABLE_NAME}` (`quizID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Quiz",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "quizID"
+            ],
+            "referencedColumns": [
+              "quizID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Answer",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`answerID` INTEGER NOT NULL, `questionID` INTEGER NOT NULL, `answer` INTEGER NOT NULL, `isCorrect` INTEGER NOT NULL, PRIMARY KEY(`answerID`), FOREIGN KEY(`questionID`) REFERENCES `Question`(`questionID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "answerID",
+            "columnName": "answerID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "questionID",
+            "columnName": "questionID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "answer",
+            "columnName": "answer",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isCorrect",
+            "columnName": "isCorrect",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "answerID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Answer_questionID",
+            "unique": false,
+            "columnNames": [
+              "questionID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Answer_questionID` ON `${TABLE_NAME}` (`questionID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Question",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "questionID"
+            ],
+            "referencedColumns": [
+              "questionID"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1c061f704c82d7f768f380e71087748d')"
+    ]
+  }
+}

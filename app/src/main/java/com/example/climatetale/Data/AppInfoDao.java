@@ -3,13 +3,14 @@ package com.example.climatetale.Data;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
 public interface AppInfoDao {
     //Actions
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(AppInfo appInfo);
 
     @Update
@@ -38,4 +39,8 @@ public interface AppInfoDao {
     //Get total topics for set appID
     @Query("SELECT totalTopics FROM AppInfo WHERE appID =:appID")
     int getTotalTopics(int appID);
+
+    //get app info object
+    @Query("SELECT * FROM AppInfo WHERE appID =:appID")
+    AppInfo getAppInfo(int appID);
 }

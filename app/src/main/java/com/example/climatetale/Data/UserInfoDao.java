@@ -1,5 +1,6 @@
 package com.example.climatetale.Data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -19,6 +20,10 @@ public interface UserInfoDao {
     void delete(UserInfo userInfo);
 
     //Queries
+    //Select user info
+    @Query("SELECT * FROM UserInfo WHERE userID =:userID")
+    UserInfo getUserInfo(int userID);
+
     //Update user's name
     @Query("UPDATE UserInfo SET name =:name WHERE userID = :userID ")
     void updateName(String name, int userID);

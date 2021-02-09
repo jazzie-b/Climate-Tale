@@ -1,16 +1,40 @@
 package com.example.climatetale.Data;
 
-import androidx.room.Database;
-import androidx.room.RoomDatabase;
+import android.content.Context;
 
-@Database(entities = {Answer.class, AppInfo.class, Chapter.class, Question.class, Quiz.class, Topic.class, UserInfo.class},
-        version = 1)
+import androidx.room.*;
+
+@Database(entities ={AppInfo.class, UserInfo.class, Chapter.class, Topic.class, Quiz.class, Question.class, Answer.class}, exportSchema = false, version = 1)
 public abstract class ClimateTaleDatabase extends RoomDatabase {
-    public abstract AnswerDao getAnswerDao();
-    public abstract AppInfoDao getAppInfoDao();
-    public abstract ChapterDao getChapterDao();
-    public abstract QuestionDao getQuestionDao();
-    public abstract QuizDao getQuizDao();
-    public abstract TopicDao getTopicDao();
-    public abstract UserInfoDao getUserInfoDao();
+
+    //Database
+    private static ClimateTaleDatabase climateTaleDB;
+
+    //Entities
+    public abstract AppInfoDao appInfoDao();
+    public abstract UserInfoDao userInfoDao();
+    public abstract ChapterDao chapterDao();
+    public abstract TopicDao topicDao();
+    public abstract QuizDao quizDao();
+    public abstract QuestionDao questionDao();
+    public abstract AnswerDao answerDao();
+
+    //Used to get instance of Database
+    public static ClimateTaleDatabase getInstance(Context context) {
+        if (null == climateTaleDB) {
+            climateTaleDB = buildDatabaseInstance(context);
+        }
+
+        return climateTaleDB;
+    }
+
+    //Build database
+    private static ClimateTaleDatabase buildDatabaseInstance(Context context) {
+        return Room.databaseBuilder(context, ClimateTaleDatabase.class, "climateTaleDB")
+                .createFromAsset("database/climate-tale-database.db")
+                .fallbackToDestructiveMigration()
+                .allowMainThreadQueries()
+                .build();
+    }
+
 }
